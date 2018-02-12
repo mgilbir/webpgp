@@ -1,6 +1,6 @@
-var clipboard = new Clipboard('.copy_btn');
-
 function generateKey() {
+    var clipboard = new Clipboard('.copy_btn');
+
     //Set input as readOnly
     document.getElementById("name").readOnly = true;
     document.getElementById("email").readOnly = true;
