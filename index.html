@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/webpgp.css" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+        <div id="menu">
+            <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                    <a class="nav-link" href="generate_key.html">Generate key</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link active" href="#">Decrypt file</a>
+                    </li>
+                </ul>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">PGP decrypt file</h1>
+                <p class="lead">This page allows you to decrypt the contents of a file that was encrypted with your public PGP key.</p>
+                <p class="lead">You need your PGP private key and the associated passphrase.</p>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="encrypted_url">URL:</label>
+                    <input class="form-control" id="encrypted_url"></input>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="passphrase">Passphrase:</label>
+                    <input class="form-control" id="passphrase"></input>
+                </div>
+            </div>    
+            <div class="input-group mb-3">
+                <div class="">
+                    <label class="input-group-text" for="private_key">Private key:</label>
+                    <textarea class="form-control pgpkey" id="private_key" rows=10 cols=100></textarea>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg" onclick="decrypt()">Decrypt</button>
+        </div>  
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/js/openpgp.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

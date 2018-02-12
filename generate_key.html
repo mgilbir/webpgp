@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/webpgp.css" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+        <div id="menu">
+            <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                    <a class="nav-link active" href="#">Generate key</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="index.html">Decrypt file</a>
+                    </li>
+                </ul>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Generate PGP key</h1>
+                <p class="lead">This page allows you to generate new PGP keys. After entering your information, press the button "generate keys" and after a while you will get a public and private key.</p>
+                <p class="lead">You need to keep in a safe place the passphrase and the private key.</p>
+                <p class="lead">You need to send the public key to the party that needs to encrypt files for you.</p>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="name">Name:</label>
+                    <input class="form-control" id="name"></input>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="email">e-mail:</label>
+                    <input class="form-control" id="email" type="email"></input>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="passphrase">passphrase:</label>
+                    <input class="form-control" id="passphrase"></input>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary btn-lg" id="generating_button" onclick="generateKey()">Generate keys</button>
+                <i class="fa fa-spinner fa-spin" style="font-size:24px" hidden id="generating_spinner"></i>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col collapse multi-collapse">
+                    <div class="row">
+                        <div class="col"><h2>New private key</h2></div>
+                        <div class="col">
+                            <button class="copy_btn" data-clipboard-target="#generated_private_key">
+                                Copy to clipboard
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <textarea class="form-control pgpkey" id="generated_private_key" rows="120" readonly></textarea>
+                    </div>
+                </div>
+                <div class="col collapse multi-collapse">
+                        <div class="row">
+                                <div class="col"><h2>New public key</h2></div>
+                                <div class="col">
+                                    <button class="copy_btn" data-clipboard-target="#generated_public_key">
+                                        Copy to clipboard
+                                    </button>
+                                </div>
+                            </div>
+                    <div>
+                        <textarea class="form-control pgpkey" id="generated_public_key" rows="60" readonly></textarea>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    <script src="/js/openpgp.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
