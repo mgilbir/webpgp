@@ -1,14 +1,5 @@
 var clipboard = new Clipboard('.copy_btn');
 
-// clipboard.on('success', function(e) {
-//     $(".copy_btn").tooltip({
-//         delay: { "show": 500, "hide": 0 },
-//         "title": "Copied!",
-//         "once": true,
-//     })
-//     e.clearSelection();
-// });
-
 function generateKey() {
     //Set input as readOnly
     document.getElementById("name").readOnly = true;
@@ -24,8 +15,6 @@ function generateKey() {
         numBits: 4096,                                            // RSA key size
         passphrase: passphrase // protects the private key
     };
-
-    console.log(options);
 
     document.getElementById("generating_button").hidden = true;
     document.getElementById("generating_spinner").hidden = false;
@@ -68,7 +57,6 @@ function decrypt() {
     
     oReq.onload = function(e) {
         var encryptedText = oReq.responseText; // not responseText
-        console.log(encryptedText)
 
         options = {
             message: openpgp.message.readArmored(encryptedText),     // parse armored message
@@ -78,7 +66,6 @@ function decrypt() {
         
         openpgp.decrypt(options).then(function(plaintext) {
             // document.getElementById("result").innerHTML = plaintext.data;
-            console.log(plaintext.data)
             var blob = new Blob([plaintext.data], {type: "text/plain;charset=utf-8"});
             saveAs(blob, "hello_world.txt");
         });    
