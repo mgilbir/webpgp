@@ -45,6 +45,8 @@ function reset_key_generation_state() {
     document.getElementById("generating_spinner").hidden = true;
 }
 
+var encrypted_data;
+
 function decrypt() {
     var privkey = document.getElementById("private_key").value
     var passphrase = document.getElementById("passphrase").value
@@ -53,27 +55,40 @@ function decrypt() {
 
     privKeyObj.decrypt(passphrase);
 
-    var oReq = new XMLHttpRequest();
-    
-    oReq.onload = function(e) {
-        var encryptedText = oReq.responseText; // not responseText
+    var selectedFile = document.getElementById('encrypted_file').files[0];
+    destination_filename = selectedFile.name.substring(0, selectedFile.name.lastIndexOf("."))
+    load_from_file(selectedFile).then(
+        (encryptedText) => openpgp_decypt(encryptedText, privKeyObj)
+    ).then(
+        (plaintext) => {
+            var blob = new Blob([plaintext.data]);
+            saveAs(blob, destination_filename);
+        },
+        (error) => {
+            console.log(error)
+        }
+    )
+}
 
-        options = {
-            message: openpgp.message.readArmored(encryptedText),     // parse armored message
-            // publicKeys: openpgp.key.readArmored(pubkey).keys,    // for verification (optional)
-            privateKey: privKeyObj // for decryption
+function openpgp_decypt(encryptedText, privKeyObj) {
+    options = {
+        message: openpgp.message.readArmored(encryptedText),     // parse armored message
+        // publicKeys: openpgp.key.readArmored(pubkey).keys,    // for verification (optional)
+        privateKey: privKeyObj // for decryption
+    };
+    
+    return openpgp.decrypt(options);
+}
+
+function load_from_file(file) {
+    return new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            resolve(event.target.result);
         };
-        
-        openpgp.decrypt(options).then(function(plaintext) {
-            // document.getElementById("result").innerHTML = plaintext.data;
-            var blob = new Blob([plaintext.data], {type: "text/plain;charset=utf-8"});
-            saveAs(blob, "hello_world.txt");
-        });    
-
-    }
-    
-    var url = document.getElementById("encrypted_url").value
-
-    oReq.open("GET", url);
-    oReq.send();
+        reader.onerror = function(event) {
+            reject(event)
+        }
+        reader.readAsText(file);
+    });
 }
