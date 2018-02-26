@@ -74,7 +74,8 @@ function openpgp_decypt(encryptedText, privKeyObj) {
     options = {
         message: openpgp.message.readArmored(encryptedText),     // parse armored message
         // publicKeys: openpgp.key.readArmored(pubkey).keys,    // for verification (optional)
-        privateKey: privKeyObj // for decryption
+        privateKey: privKeyObj, // for decryption
+        format: 'binary'
     };
     
     return openpgp.decrypt(options);
