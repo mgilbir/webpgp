@@ -58,7 +58,7 @@ function decrypt() {
     var selectedFile = document.getElementById('encrypted_file').files[0];
     destination_filename = selectedFile.name.substring(0, selectedFile.name.lastIndexOf("."))
     load_from_file(selectedFile).then(
-        (encryptedText) => openpgp_decypt(encryptedText, privKeyObj)
+        (encryptedText) => openpgp_decrypt(encryptedText, privKeyObj)
     ).then(
         (plaintext) => {
             var blob = new Blob([plaintext.data]);
@@ -70,7 +70,7 @@ function decrypt() {
     )
 }
 
-function openpgp_decypt(encryptedText, privKeyObj) {
+function openpgp_decrypt(encryptedText, privKeyObj) {
     options = {
         message: openpgp.message.readArmored(encryptedText),     // parse armored message
         // publicKeys: openpgp.key.readArmored(pubkey).keys,    // for verification (optional)
