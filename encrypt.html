@@ -19,19 +19,19 @@
                     <a class="nav-link" href="generate_key.html">Generate key</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link active" href="#">Decrypt file</a>
+                    <a class="nav-link" href="index.html">Decrypt file</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="encrypt.html">Encrypt file</a>
+                        <a class="nav-link active" href="#">Encrypt file</a>
                     </li>
                 </ul>
         </div>
 
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-4">PGP decrypt file</h1>
-                <p class="lead">This page allows you to decrypt the contents of a file that was encrypted with your public PGP key.</p>
-                <p class="lead">You need your PGP private key and the associated passphrase.</p>
+                <h1 class="display-4">PGP encrypt file</h1>
+                <p class="lead">This page allows you to encrypt the contents of a file that with the receiver's public PGP key.</p>
+                <p class="lead">You need the receiver's PGP public key.</p>
             </div>
         </div>
     
@@ -39,22 +39,16 @@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="File">File:</label>
-                    <input class="form-control" type="file" id="encrypted_file"></input>
+                    <input class="form-control" type="file" id="source_file"></input>
                 </div>
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="passphrase">Passphrase:</label>
-                    <input class="form-control" id="passphrase"></input>
-                </div>
-            </div>    
             <div class="input-group mb-3">
                 <div class="">
-                    <label class="input-group-text" for="private_key">Private key:</label>
-                    <textarea class="form-control pgpkey" id="private_key" rows=10 cols=100></textarea>
+                    <label class="input-group-text" for="public_key">Public key:</label>
+                    <textarea class="form-control pgpkey" id="public_key" rows=10 cols=100></textarea>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary btn-lg" onclick="decrypt()">Decrypt</button>
+            <button type="button" class="btn btn-primary btn-lg" onclick="encrypt()">Encrypt</button>
         </div>  
     
     <!-- Optional JavaScript -->

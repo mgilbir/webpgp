@@ -93,3 +93,50 @@ function load_from_file(file) {
         reader.readAsText(file);
     });
 }
+
+function load_from_file_binary(file) {
+    return new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            resolve(new Uint8Array(event.target.result));
+        };
+        reader.onerror = function(event) {
+            reject(event)
+        }
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+function encrypt() {
+    return encryptFile();
+}
+
+function openpgp_encrypt(sourceData, pubKeyObj) {
+    options = {
+        data: sourceData,
+        publicKeys: pubKeyObj,
+        format: 'binary'
+    };
+    
+    return openpgp.encrypt(options);
+}
+
+function encryptFile() {
+    var pubkey = document.getElementById("public_key").value
+    
+    var pubKeyObj = openpgp.key.readArmored(pubkey).keys[0];
+
+    var selectedFile = document.getElementById('source_file').files[0];
+    destination_filename = selectedFile.name + ".gpg"
+    load_from_file_binary(selectedFile).then(
+        (sourceData) => openpgp_encrypt(sourceData, pubKeyObj)
+    ).then(
+        (encryptedData) => {
+            var blob = new Blob([encryptedData.data]);
+            saveAs(blob, destination_filename);
+        },
+        (error) => {
+            console.log(error)
+        }
+    )
+}
